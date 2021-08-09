@@ -1,0 +1,28 @@
+object Caesar_cipher {
+  import scala.io.StdIn.readLine
+
+  val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ _@#$%^&*()"
+
+  //Encrypt
+  val E = (c:Char, key:Int, s:String) =>s((s.indexOf(c.toUpper)+key)%s.size)
+
+
+  //Decrypt
+  val D = (c:Char, key:Int, s:String) => s(if((s.indexOf(c.toUpper)-key)%s.size >=0) (s.indexOf(c.toUpper)-key)%s.size else s.size+(s.indexOf(c.toUpper)-key)%s.size)
+
+
+  //Caesar Cipher
+  val cipher = (algo:(Char, Int, String)=>Char, s:String, key:Int,  a:String)=>s.map(algo(_, key, a))
+
+
+  def main(args: Array[String]): Unit ={
+    println("Enter String :")
+    var st: String = readLine()
+
+    val ct = cipher(E, st, 5, alphabet)
+    println("Encrypted string = "+ct)
+
+    val pt = cipher(D, ct, 5, alphabet)
+    println("Decrypted string = "+pt)
+  }
+}
